@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+<link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="toggle-theme" id="toggle-theme">🌓</div>
+    <h2>User Registration</h2>
+    <form method="post" enctype="multipart/form-data" action="{{ url_for('register') }}">
+        <div class="floating-label">
+            <input type="text" name="name" placeholder=" " value="{{ name or '' }}">
+            <label>Name</label>
+        </div>
+        <div class="floating-label">
+            <input type="text" name="city" placeholder=" " value="{{ city or '' }}">
+            <label>City</label>
+        </div>
+        <div class="floating-label">
+            <input type="tel" name="mobile" placeholder=" " value="{{ mobile or '' }}">
+            <label>Mobile</label>
+        </div>
+        <div class="floating-label">
+            <input type="email" name="email" placeholder=" " value="{{ email or '' }}">
+            <label>Email</label>
+        </div>
+        <div class="floating-label">
+            <input type="password" name="password" placeholder=" ">
+            <label>Password</label>
+        </div>
+        <div class="file-upload">
+  <label for="photo" class="upload-label">📁 Choose Profile Photo</label>
+  <input type="file" id="photo" name="photo" accept="image/*" onchange="updateFileName(this); previewImage(this);">
+  <span class="file-name" id="fileName">No file chosen</span>
+</div>
+
+<div class="image-preview">
+  <img id="preview" src="#" alt="Image Preview" style="display: none;">
+</div>
+       
+        <button type="submit">Register</button>
+    </form>
+    <p style="text-align: center;padding-top:18px;">Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+</div>
+  <div class="toast" id="toast">
+        <span id="toast-icon"></span>
+        <span id="toast-text"></span>
+    </div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<!-- Flash message runner -->
+<script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        window.addEventListener('DOMContentLoaded', () => {
+            {% for category, message in messages %}
+                showToast("{{ message }}", "{{ category }}");
+            {% endfor %}
+        });
+    {% endif %}
+    {% endwith %}
+</script>
+</body>
+</html>

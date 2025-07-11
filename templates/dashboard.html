@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+.user-card {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+body.dark .user-card {
+    background: #2a2a2a;
+    color: #eee;
+}
+
+.user-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+/* Logout button */
+.btn-logout {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: #dc3545;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
+}
+
+body.dark .btn-logout {
+    background-color: #ff4b5c;
+    color: white;
+}
+
+body.dark .btn-logout:hover {
+    background-color: #e04352;
+}
+</style>
+</head>
+<body>
+    <div class="container dashboard-card">
+        <div class="toggle-theme" id="toggle-theme">🌙</div>
+        <h2>Welcome, {{ user.name }}</h2>
+
+        <div class="user-card">
+            <img src="{{ url_for('static', filename=user.image_filename) if user.image_filename else url_for('static', filename='default.png') }}" alt="Profile Image">
+            <h3>{{ user.name }}</h3>
+            <p><strong>City:</strong> {{ user.city }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Mobile:</strong> {{ user.mobile }}</p>
+        </div>
+
+        <a href="{{ url_for('logout') }}" class="btn-logout" style="margin-top: 20px;">🔒 Logout</a>
+    </div>
+
+    <div class="toast" id="toast">
+        <span id="toast-icon"></span>
+        <span id="toast-text"></span>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

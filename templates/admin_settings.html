@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container dashboard-card">
+        
+
+        <form method="POST">
+            <div class="floating-label">
+                <input type="text" name="username" value="{{ admin.username }}" placeholder=" ">
+                <label>New Username (optional)</label>
+            </div>
+
+            <div class="floating-label">
+                <input type="password" name="password" placeholder=" ">
+                <label>New Password (optional)</label>
+            </div>
+
+            <div class="floating-label">
+                <input type="password" name="current_password" required placeholder=" ">
+                <label>Current Password (required)</label>
+            </div>
+
+            <button type="submit">Update</button>
+        </form>
+    </div>
+
+    <!-- Toast Message -->
+    <div class="toast" id="toast">
+        <span id="toast-icon"></span>
+        <span id="toast-text"></span>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        window.addEventListener('DOMContentLoaded', () => {
+            {% for category, message in messages %}
+                {% if message.strip() %}
+                    showToast("{{ message }}", "{{ category }}");
+                {% endif %}
+            {% endfor %}
+        });
+        {% endif %}
+        {% endwith %}
+    </script>
+</body>
+</html>

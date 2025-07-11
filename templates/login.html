@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+<link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="toggle-theme" id="toggle-theme">🌓</div>
+    <h2>Login</h2>
+    <form method="post">
+        <div class="floating-label">
+            <input type="email" name="email" placeholder=" " required>
+            <label>Email</label>
+        </div>
+        <div class="floating-label">
+            <input type="password" name="password" placeholder=" " required>
+            <label>Password</label>
+        </div>
+        <div style="margin-bottom: 12px;">
+            <label><input type="checkbox" name="remember"> Remember Me</label>
+        </div>
+        <button type="submit">Login</button>
+    
+<a href="{{ url_for('forgot_password') }}" class="forgot-link">Forgot Password?</a>
+</form>
+    <p style="text-align: center;padding-top:18px;">Don't have an account? <a href="{{ url_for('register') }}">Register</a></p>
+</div>
+<div class="toast" id="toast">
+        <span id="toast-icon"></span>
+        <span id="toast-text"></span>
+    </div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<!-- Flash message runner -->
+<script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        window.addEventListener('DOMContentLoaded', () => {
+            {% for category, message in messages %}
+                showToast("{{ message }}", "{{ category }}");
+            {% endfor %}
+        });
+    {% endif %}
+    {% endwith %}
+</script>
+</body>
+</html>
