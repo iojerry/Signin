@@ -24,8 +24,8 @@ def nocache(view_func):
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'jerry_chhoti')
 
-UPLOAD_FOLDER = '/storage/emulated/0/admin/Jerry/static/uploads'
-DB_FILE_PATH = '/storage/emulated/0/admin/Jerry/users.db'
+UPLOAD_FOLDER = os.path.join('static', 'uploads')
+DB_FILE_PATH = os.path.join('users.db')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
