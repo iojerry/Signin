@@ -29,7 +29,7 @@ DB_FILE_PATH = os.path.join(os.path.dirname(__file__), 'users.db')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_FILE_PATH}'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.permanent_session_lifetime = timedelta(days=30)
 
